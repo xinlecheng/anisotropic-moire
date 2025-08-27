@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from typing import List, Tuple, Dict
-from single_particle.reciprocal_lattice import Bilayer, MoireSystem
+from reciprocal_lattice import Bilayer, MoireSystem
 import numpy as np
 import os
 
