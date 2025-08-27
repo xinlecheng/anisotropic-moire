@@ -1,9 +1,9 @@
 import numpy as np
 from numpy import pi
 from typing import List, Tuple, Union
-import reciprocal_lattice
-from reciprocal_lattice import Bilayer, MoireSystem
-import plot_function
+import single_particle.reciprocal_lattice as reciprocal_lattice
+from single_particle.reciprocal_lattice import Bilayer, MoireSystem
+import single_particle.plot_function as plot_function
 
 DTYPR_REAL = np.float64
 DTYPR_COMPLEX = np.complex128

@@ -1,11 +1,11 @@
 import numpy as np
 from numpy import pi
-import reciprocal_lattice
+import single_particle.reciprocal_lattice as reciprocal_lattice
 import os
 
 DTYPE_REAL = np.float64
 DTYPE_COMPLEX = np.complex128
-import plot_function
+import single_particle.plot_function as plot_function
 
 if __name__ == "__main__":
     fracktocar = np.transpose([[0.5, -np.sqrt(3)/2],[0.5, np.sqrt(3)/2]])
