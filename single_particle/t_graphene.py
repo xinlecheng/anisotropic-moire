@@ -1,9 +1,13 @@
+import sys
+import pathlib
+PORJ_DIR = pathlib.Path(__file__).resolve().parent.parent
+sys.path.append(PORJ_DIR.as_posix())
 import numpy as np
 from numpy import pi
 from typing import List, Tuple, Union, Optional
 import reciprocal_lattice
 from reciprocal_lattice import Bilayer, MoireSystem
-import plot_function
+import general.plot_function as plot_function
 import os
 
 DTYPR_REAL = np.float64
@@ -76,9 +80,9 @@ def moire_ham(bilayer: Bilayer, w0: Union[float, np.ndarray] = np.array([0.577, 
                 block_2.transpose(0,2,1,3).reshape((ns_plv*num_lv, ns_plv*num_lv))
     return moire_ham
 
-def moire_ham_phi(bilayer: Bilayer) -> np.ndarray:
+def moire_ham_ani(bilayer: Bilayer) -> np.ndarray:
     '''
-    construct the moire hamiltonian based on the T_atom(q)
+    construct the anisotropic moire hamiltonian based on the T_atom(q)
     '''
     w1 = 0.577
     w0 = 1.0*w1 # 0.7*w1 from congregation
@@ -123,8 +127,8 @@ if __name__ == '__main__':
     layer_dis_p = np.array([[1/3,2/3],[2/3,1/3]])*(1+3*phi/2/pi)
     tbg_bilayer_m = Bilayer(fracktocar, layer_dis_m, 2, 5)
     tbg_bilayer_p = Bilayer(fracktocar, layer_dis_p, 2, 5)
-    tbg_moire_m = MoireSystem(tbg_bilayer_m, kinetic_ham, moire_ham_phi)
-    tbg_moire_p = MoireSystem(tbg_bilayer_p, kinetic_ham, moire_ham_phi)
+    tbg_moire_m = MoireSystem(tbg_bilayer_m, kinetic_ham, moire_ham_ani)
+    tbg_moire_p = MoireSystem(tbg_bilayer_p, kinetic_ham, moire_ham_ani)
     #print(f"lattice: {tbg_moire.bilayer.lattice_car()}")
     plot_function.visualize_bilayer(tbg_bilayer_m)
     #print(f"matrix: {tbg_moire.hamiltonian(np.array([0,0]))[2:4,2:4]}")
@@ -143,7 +147,7 @@ if __name__ == '__main__':
         plot_function.bs_plot(band_data_m, kticks, aspect_ratio=0.5, yrange=(-4, 4), color='red')
         plot_function.bs_plot(band_data_p, kticks, aspect_ratio=0.5, yrange=(-4, 4), color='blue')
     else:
-        folder_path = '/home/xcheng/Desktop/phD/moire/anisotropic_moire/data/compare_continuum_tb/continuum_0d15'
+        folder_path = os.path.join('/home/xcheng/Desktop/phD/moire/anisotropic_moire/data/compare_continuum_tb',f"continuum_{str(phi).replace('.','d')}")
         if os.path.exists(folder_path) is False:
             os.mkdir(folder_path)
         np.save(os.path.join(folder_path, 'band_data_m.npy'), band_data_m)

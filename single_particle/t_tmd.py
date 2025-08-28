@@ -1,9 +1,13 @@
+import sys
+import pathlib
+PORJ_DIR = pathlib.Path(__file__).resolve().parent.parent
+sys.path.append(PORJ_DIR.as_posix())
 import numpy as np
 from numpy import pi
 from typing import List, Tuple, Union
 import reciprocal_lattice
 from reciprocal_lattice import Bilayer, MoireSystem
-import plot_function
+import general.plot_function as plot_function
 
 DTYPR_REAL = np.float64
 DTYPR_COMPLEX = np.complex128
